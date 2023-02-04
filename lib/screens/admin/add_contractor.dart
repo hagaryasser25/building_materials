@@ -22,6 +22,7 @@ class AddContractor extends StatefulWidget {
 
 class _AddContractorState extends State<AddContractor> {
   var codeController = TextEditingController();
+  var emailController = TextEditingController();
   var nameController = TextEditingController();
   var phoneNumberController = TextEditingController();
   var descriptionController = TextEditingController();
@@ -73,6 +74,22 @@ class _AddContractorState extends State<AddContractor> {
                         ),
                         border: OutlineInputBorder(),
                         hintText: 'اسم المقاول',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  SizedBox(
+                    height: 65.h,
+                    child: TextField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        fillColor: HexColor('#155564'),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.green, width: 2.0),
+                        ),
+                        border: OutlineInputBorder(),
+                        hintText: 'حساب المقاول',
                       ),
                     ),
                   ),
@@ -142,20 +159,26 @@ class _AddContractorState extends State<AddContractor> {
                         String company = companyController.text.trim();
                         String phoneNumber = phoneNumberController.text.trim();
                         String code = codeController.text.trim();
+                        String email = emailController.text.trim();
 
                         if (name.isEmpty) {
                           Fluttertoast.showToast(msg: 'ادخل اسم المقاول');
                           return;
                         }
 
+                        if (email.isEmpty) {
+                          Fluttertoast.showToast(msg: 'ادخل حساب المقاول');
+                          return;
+                        }
+
                         if (description.isEmpty) {
-                          Fluttertoast.showToast(msg: 'ادخل السيرة الذاتية للمقاول');
+                          Fluttertoast.showToast(
+                              msg: 'ادخل السيرة الذاتية للمقاول');
                           return;
                         }
 
                         if (company.isEmpty) {
-                          Fluttertoast.showToast(
-                              msg: 'ادخل اسم الشركة');
+                          Fluttertoast.showToast(msg: 'ادخل اسم الشركة');
                           return;
                         }
 
@@ -189,6 +212,7 @@ class _AddContractorState extends State<AddContractor> {
                             'description': description,
                             'companyName': company,
                             'phoneNumber': phoneNumber,
+                            'email': email,
                           });
                         }
                         showAlertDialog(context);

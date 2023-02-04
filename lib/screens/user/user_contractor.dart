@@ -93,6 +93,9 @@ class _UserContractorState extends State<UserContractor> {
                         Text(
                             '${contractorsList[index].description.toString()}'),
                         SizedBox(height: 5.h),
+                        Text(
+                            '${contractorsList[index].email.toString()}'),
+                        SizedBox(height: 5.h),
                         ConstrainedBox(
                           constraints: BoxConstraints.tightFor(
                               width: 70.w, height: 35.h),
@@ -106,6 +109,7 @@ class _UserContractorState extends State<UserContractor> {
                                   MaterialPageRoute(builder: (context) {
                                 return BookContractor(
                                   code: contractorsList[index].code.toString(),
+                                  email: contractorsList[index].email.toString(),
                                 );
                               }));
                             },
@@ -118,7 +122,7 @@ class _UserContractorState extends State<UserContractor> {
               },
               staggeredTileBuilder: (int index) =>
                   new StaggeredTile.count(3, index.isEven ? 3 : 3),
-              mainAxisSpacing: 30.0,
+              mainAxisSpacing: 35.0,
               crossAxisSpacing: 5.0,
             ),
           ),

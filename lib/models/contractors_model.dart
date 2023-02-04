@@ -8,6 +8,7 @@ class Contractors {
     String? company,
     String? code,
     String? id,
+    String? email,
   }) {
     _name = name;
     _phoneNumber = phoneNumber;
@@ -15,6 +16,7 @@ class Contractors {
     _company = company;
     _code = code;
     _id = id;
+    _email = email;
   }
 
   Contractors.fromJson(dynamic json) {
@@ -24,6 +26,7 @@ class Contractors {
     _company = json['companyName'];
     _code = json['code'];
     _id = json['id'];
+    _email = json['email'];
   }
 
   String? _name;
@@ -32,7 +35,7 @@ class Contractors {
   String? _company;
   String? _code;
   String? _id;
-  
+  String? _email;
 
   String? get name => _name;
   String? get phoneNumber => _phoneNumber;
@@ -40,6 +43,7 @@ class Contractors {
   String? get company => _company;
   String? get code => _code;
   String? get id => _id;
+  String? get email => _email;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -49,6 +53,7 @@ class Contractors {
     map['companyName'] = _company;
     map['code'] = _code;
     map['id'] = _id;
+    map['email'] = _email;
 
     return map;
   }

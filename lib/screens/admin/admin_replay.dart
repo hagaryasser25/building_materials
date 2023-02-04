@@ -36,6 +36,10 @@ class _AdminReplayState extends State<AdminReplay> {
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         builder: (context, child) => Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.green,
+            title: Text('الرد على الشكوى'),
+          ),
           body: Padding(
             padding: EdgeInsets.only(
               top: 50.h,
@@ -45,6 +49,10 @@ class _AdminReplayState extends State<AdminReplay> {
               child: Center(
                 child: Column(
                   children: [
+                     Image.asset(
+                      'assets/images/building.jfif',
+                      height: 180.h,
+                    ),
                     SizedBox(
                       height: 150.h,
                       child: TextField(

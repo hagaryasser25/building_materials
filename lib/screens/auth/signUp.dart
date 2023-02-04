@@ -22,6 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
   var fullNameController = TextEditingController();
   var phoneNumberController = TextEditingController();
   var addressController = TextEditingController();
+  String dropdownValue = 'مستخدم';
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -32,7 +33,10 @@ class _SignUpPageState extends State<SignUpPage> {
           body: Container(
             color: Colors.white,
             child: Column(children: [
-              Image.asset('assets/images/building.jfif',height: 180.h,),
+              Image.asset(
+                'assets/images/building.jfif',
+                height: 180.h,
+              ),
               Expanded(
                 child: Container(
                   height: double.infinity,
@@ -189,6 +193,59 @@ class _SignUpPageState extends State<SignUpPage> {
                           SizedBox(
                             height: 30.h,
                           ),
+                          DecoratedBox(
+                            decoration: ShapeDecoration(
+                              shape: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 222, 221, 221),
+                                    width: 2.0),
+                              ),
+                            ),
+                            child: DropdownButton<String>(
+                              isExpanded: true,
+                              underline: SizedBox(),
+
+                              // Step 3.
+                              value: dropdownValue,
+                              icon: Padding(
+                                padding: EdgeInsets.only(right: 5),
+                                child: Icon(Icons.arrow_drop_down,
+                                    color: Color.fromARGB(255, 119, 118, 118)),
+                              ),
+
+                              // Step 4.
+                              items: [
+                                'مستخدم',
+                                'مقاول'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      right: 5,
+                                    ),
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: Color.fromARGB(
+                                              255, 119, 118, 118)),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                              // Step 5.
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropdownValue = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
                           ConstrainedBox(
                             constraints: BoxConstraints.tightFor(
                                 width: double.infinity, height: 50.h),
@@ -206,7 +263,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     color: Color.fromARGB(255, 89, 175, 245),
                                     fontWeight: FontWeight.w600),
                               ),
-                              onPressed: () async{
+                              onPressed: () async {
                                 var fullName = fullNameController.text.trim();
                                 var phoneNumber =
                                     phoneNumberController.text.trim();
@@ -239,52 +296,58 @@ class _SignUpPageState extends State<SignUpPage> {
                                 progressDialog.show();
 
                                 try {
-                          FirebaseAuth auth = FirebaseAuth.instance;
-                          UserCredential userCredential =
-                              await auth.createUserWithEmailAndPassword(
-                            email: email,
-                            password: password,
-                          );
-                          User? user = userCredential.user;
-                          user!.updateProfile(displayName: fullName);
+                                  FirebaseAuth auth = FirebaseAuth.instance;
 
-                          if (userCredential.user != null) {
-                            DatabaseReference userRef = FirebaseDatabase
-                                .instance
-                                .reference()
-                                .child('users');
+                                  UserCredential userCredential =
+                                      await auth.createUserWithEmailAndPassword(
+                                    email: email,
+                                    password: password,
+                                  );
+                                  User? user = userCredential.user;
+                                  user!.updateProfile(
+                                      displayName: dropdownValue);
 
-                            String uid = userCredential.user!.uid;
-                            int dt = DateTime.now().millisecondsSinceEpoch;
+                                  if (userCredential.user != null) {
+                                    DatabaseReference userRef = FirebaseDatabase
+                                        .instance
+                                        .reference()
+                                        .child('users');
 
-                            await userRef.child(uid).set({
-                              'fullName': fullName,
-                              'email': email,
-                              'uid': uid,
-                              'dt': dt,
-                              'phoneNumber': phoneNumber,
-                              'address': address,
-                            });
+                                    String uid = userCredential.user!.uid;
+                                    int dt =
+                                        DateTime.now().millisecondsSinceEpoch;
 
-                            Fluttertoast.showToast(msg: 'Success');
+                                    await userRef.child(uid).set({
+                                      'fullName': fullName,
+                                      'email': email,
+                                      'uid': uid,
+                                      'dt': dt,
+                                      'phoneNumber': phoneNumber,
+                                      'address': address,
+                                      'role': dropdownValue,
+                                    });
 
-                            Navigator.of(context).pop();
-                          } else {
-                            Fluttertoast.showToast(msg: 'Failed');
-                          }
-                          progressDialog.dismiss();
-                        } on FirebaseAuthException catch (e) {
-                          progressDialog.dismiss();
-                          if (e.code == 'email-already-in-use') {
-                            Fluttertoast.showToast(
-                                msg: 'Email is already exist');
-                          } else if (e.code == 'weak-password') {
-                            Fluttertoast.showToast(msg: 'Password is weak');
-                          }
-                        } catch (e) {
-                          progressDialog.dismiss();
-                          Fluttertoast.showToast(msg: 'Something went wrong');
-                        }
+                                    Fluttertoast.showToast(msg: 'Success');
+
+                                    Navigator.of(context).pop();
+                                  } else {
+                                    Fluttertoast.showToast(msg: 'Failed');
+                                  }
+                                  progressDialog.dismiss();
+                                } on FirebaseAuthException catch (e) {
+                                  progressDialog.dismiss();
+                                  if (e.code == 'email-already-in-use') {
+                                    Fluttertoast.showToast(
+                                        msg: 'Email is already exist');
+                                  } else if (e.code == 'weak-password') {
+                                    Fluttertoast.showToast(
+                                        msg: 'Password is weak');
+                                  }
+                                } catch (e) {
+                                  progressDialog.dismiss();
+                                  Fluttertoast.showToast(
+                                      msg: 'Something went wrong');
+                                }
                               },
                             ),
                           ),

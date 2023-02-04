@@ -8,8 +8,11 @@ import 'package:building_materials/screens/admin/admin_finishing.dart';
 import 'package:building_materials/screens/admin/admin_home.dart';
 import 'package:building_materials/screens/admin/contract_list.dart';
 import 'package:building_materials/screens/auth/admin_login.dart';
+import 'package:building_materials/screens/auth/contractor_login.dart';
 import 'package:building_materials/screens/auth/login.dart';
 import 'package:building_materials/screens/auth/signUp.dart';
+import 'package:building_materials/screens/contractor/contractor_home.dart';
+import 'package:building_materials/screens/contractor/contractor_list.dart';
 import 'package:building_materials/screens/user/book_contractor.dart';
 import 'package:building_materials/screens/user/send_complain.dart';
 import 'package:building_materials/screens/user/user_building.dart';
@@ -53,7 +56,11 @@ class MyApp extends StatelessWidget {
           ? const LoginPage()
           : FirebaseAuth.instance.currentUser!.email == 'admin@gmail.com'
               ? const AdminHome()
-              : UserHome(email: FirebaseAuth.instance.currentUser!.email!,
+              : FirebaseAuth.instance.currentUser!.displayName == 'مقاول'
+              ?
+              const ContractorHome()
+              :
+               UserHome(email: FirebaseAuth.instance.currentUser!.email!,
               name: FirebaseAuth.instance.currentUser!.displayName!,),
       routes: {
           SignUpPage.routeName: (ctx) => SignUpPage(),
@@ -77,6 +84,9 @@ class MyApp extends StatelessWidget {
           AdminComplains.routeName: (ctx) => AdminComplains(),
           UserReplays.routeName: (ctx) => UserReplays(),
           UserCart.routeName: (ctx) => UserCart(),
+          ContractorLogin.routeName: (ctx) => ContractorLogin(),
+          ContractorHome.routeName: (ctx) => ContractorHome(),
+          ContractorList.routeName: (ctx) => ContractorList(),
       },
     );
   }

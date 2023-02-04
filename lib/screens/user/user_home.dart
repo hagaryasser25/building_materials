@@ -149,7 +149,8 @@ class _UserHomeState extends State<UserHome> {
                         },
                         title: Text('تسجيل الخروج'),
                         leading: Icon(Icons.exit_to_app_rounded),
-                      )))
+                      ))
+                      )
             ],
           )),
           body: Column(

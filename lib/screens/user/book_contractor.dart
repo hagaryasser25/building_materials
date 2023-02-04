@@ -14,8 +14,9 @@ import 'package:image_picker/image_picker.dart';
 
 class BookContractor extends StatefulWidget {
   String code;
+  String email;
   static const routeName = '/bookContractor';
-  BookContractor({required this.code});
+  BookContractor({required this.code, required this.email});
 
   @override
   State<BookContractor> createState() => _BookContractorState();
@@ -155,6 +156,7 @@ class _BookContractorState extends State<BookContractor> {
                             'description': description,
                             'deliveryDate': deliveryDate,
                             'address': address,
+                            'email': widget.email,
                           });
                         }
                         showAlertDialog(context);

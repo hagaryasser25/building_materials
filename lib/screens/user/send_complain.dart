@@ -14,7 +14,9 @@ import 'package:image_picker/image_picker.dart';
 
 class SendComplain extends StatefulWidget {
   static const routeName = '/sendComplain';
-  const SendComplain({super.key, });
+  const SendComplain({
+    super.key,
+  });
 
   @override
   State<SendComplain> createState() => _SendComplainState();
@@ -23,7 +25,7 @@ class SendComplain extends StatefulWidget {
 class _SendComplainState extends State<SendComplain> {
   var descriptionController = TextEditingController();
 
-   late String email;
+  late String email;
 
   @override
   void initState() {
@@ -40,6 +42,10 @@ class _SendComplainState extends State<SendComplain> {
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         builder: (context, child) => Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.green,
+            title: Text('ارسال شكوى'),
+          ),
           body: Padding(
             padding: EdgeInsets.only(
               top: 50.h,
@@ -49,6 +55,10 @@ class _SendComplainState extends State<SendComplain> {
               child: Center(
                 child: Column(
                   children: [
+                    Image.asset(
+                      'assets/images/building.jfif',
+                      height: 180.h,
+                    ),
                     SizedBox(
                       height: 150.h,
                       child: TextField(
@@ -76,26 +86,27 @@ class _SendComplainState extends State<SendComplain> {
                           primary: Colors.green,
                         ),
                         onPressed: () async {
-                          String description = descriptionController.text.trim();
-              
+                          String description =
+                              descriptionController.text.trim();
+
                           if (description.isEmpty) {
                             Fluttertoast.showToast(msg: 'ادخل الشكوى');
                             return;
                           }
-              
+
                           User? user = FirebaseAuth.instance.currentUser;
-              
+
                           if (user != null) {
                             String uid = user.uid;
                             int date = DateTime.now().millisecondsSinceEpoch;
-              
+
                             DatabaseReference companyRef = FirebaseDatabase
                                 .instance
                                 .reference()
                                 .child('userComplains');
-              
+
                             String? id = companyRef.push().key;
-              
+
                             await companyRef.child(id!).set({
                               'id': id,
                               'userEmail': email,

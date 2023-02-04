@@ -1,3 +1,4 @@
+import 'package:building_materials/screens/admin/admin_home.dart';
 import 'package:building_materials/screens/auth/signUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,19 +9,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:ndialog/ndialog.dart';
 
+import '../contractor/contractor_home.dart';
 import '../user/user_home.dart';
-import 'admin_login.dart';
-import 'contractor_login.dart';
 
-class LoginPage extends StatefulWidget {
-  static const routeName = '/loginPage';
-  const LoginPage({super.key});
+class ContractorLogin extends StatefulWidget {
+  static const routeName = '/contractorLogin';
+  const ContractorLogin({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<ContractorLogin> createState() => _ContractorLoginState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ContractorLoginState extends State<ContractorLogin> {
   var passwordController = TextEditingController();
   var emailController = TextEditingController();
   @override
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                                 if (userCredential.user != null) {
                                   progressDialog.dismiss();
                                   Navigator.pushNamed(
-                                      context, UserHome.routeName);
+                                      context, ContractorHome.routeName);
                                 }
                               } on FirebaseAuthException catch (e) {
                                 progressDialog.dismiss();
@@ -172,45 +172,6 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           ),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            //Navigator.pushNamed(context, SignUp.routeName);
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 35.w, top: 20.h),
-                            child: Row(
-                              children: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, AdminLogin.routeName);
-                                    },
-                                    child: Text(
-                                      'تسجيل الدخول كأدمن',
-                                      style: TextStyle(color: Colors.white),
-                                    )),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, ContractorLogin.routeName);
-                                    },
-                                    child: Text(
-                                      'تسجيل الدخول كمقاول',
-                                      style: TextStyle(color: Colors.white),
-                                    )),
-                              ],
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, SignUpPage.routeName);
-                            },
-                            child: Text(
-                              'قم بانشاء حساب من هنا',
-                              style: TextStyle(color: Colors.white),
-                            )),
                       ],
                     ),
                   ),

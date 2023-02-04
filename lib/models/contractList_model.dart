@@ -9,6 +9,7 @@ class ContractListv {
     String? code,
     String? id,
     String? deliveryDate,
+    String? email,
   }) {
     _address = address;
     _date = date;
@@ -17,6 +18,7 @@ class ContractListv {
     _code = code;
     _id = id;
     _deliveryDate = deliveryDate;
+    _email = email;
   }
 
   ContractListv.fromJson(dynamic json) {
@@ -27,6 +29,7 @@ class ContractListv {
     _code = json['code'];
     _id = json['id'];
     _deliveryDate = json['deliveryDate'];
+    _email = json['email'];
   }
 
   String? _address;
@@ -36,7 +39,7 @@ class ContractListv {
   String? _code;
   String? _id;
   String? _deliveryDate;
-  
+  String? _email;
 
   String? get address => _address;
   int? get date => _date;
@@ -45,16 +48,18 @@ class ContractListv {
   String? get code => _code;
   String? get id => _id;
   String? get deliveryDate => _deliveryDate;
+  String? get email => _email;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['address'] = _address;
     map['date'] = _date;
     map['description'] = _description;
-    map['userEmail'] =_userEmail;
+    map['userEmail'] = _userEmail;
     map['code'] = _code;
     map['id'] = _id;
     map['deliveryDate'] = _deliveryDate;
+    map['email'] = _email;
 
     return map;
   }

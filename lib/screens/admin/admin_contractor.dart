@@ -109,6 +109,8 @@ class _AdminContractorState extends State<AdminContractor> {
                         SizedBox(height: 5.h),
                         Text('${contractorsList[index].description.toString()}'),
                         SizedBox(height: 5.h),
+                        Text('${contractorsList[index].email.toString()}'),
+                        SizedBox(height: 5.h),
                         InkWell(
                           onTap: () async {
                             Navigator.pushReplacement(
@@ -130,7 +132,7 @@ class _AdminContractorState extends State<AdminContractor> {
               },
               staggeredTileBuilder: (int index) =>
                   new StaggeredTile.count(3, index.isEven ? 3 : 3),
-              mainAxisSpacing: 25.0,
+              mainAxisSpacing: 35.0,
               crossAxisSpacing: 5.0,
             ),
           ),
