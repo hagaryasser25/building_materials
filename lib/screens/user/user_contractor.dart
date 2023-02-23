@@ -122,7 +122,7 @@ class _UserContractorState extends State<UserContractor> {
               },
               staggeredTileBuilder: (int index) =>
                   new StaggeredTile.count(3, index.isEven ? 3 : 3),
-              mainAxisSpacing: 35.0,
+              mainAxisSpacing: 38.0,
               crossAxisSpacing: 5.0,
             ),
           ),

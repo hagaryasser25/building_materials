@@ -54,6 +54,11 @@ class _BookContractorState extends State<BookContractor> {
               padding: EdgeInsets.only(right: 10.w, left: 10.w),
               child: Column(
                 children: [
+                   Image.asset(
+                'assets/images/building.jfif',
+                height: 180.h,
+              ),
+              SizedBox(height: 20.h,),
                   SizedBox(
                     height: 150.h,
                     child: TextField(
